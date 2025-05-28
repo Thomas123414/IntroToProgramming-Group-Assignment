@@ -35,29 +35,45 @@ public class Navigation {
     };
 
     public static void Navigate() {
+        PX = CurrentLocation % 5;
+        PY = CurrentLocation / 5;
+        IndexLocation = PY * 5 + PX;
+        boolean LoopActive = true;
+
+        print("You reside within the region of " + Locations[IndexLocation] + ", where do you want to go from here?");
+        lineBreak();
+
         map();
+        print("'N' = Up, 'S' = Down, 'W' = Left, 'E' = Right, '/' = Cancel Travel");
+
+        while (LoopActive) {
+            print("Enter Your Choice: ");
+            String Movement = Input.nextLine().toUpperCase();
+
+
+
+
+        }
+
     }
 
     public static void map() {
-        // Calculate player's current location
         PX = CurrentLocation % 5;
         PY = CurrentLocation / 5;
 
         println("Map Key: P = Players, 0 = Travelable Locations, - = Non-Travelable Locations");
-
-        // Print the map
         for (int y = 0; y < 5; y++) {
             System.out.println("+---+---+---+---+---+");
             for (int x = 0; x < 5; x++) {
                 System.out.print("| ");
                 if (PY == y && PX == x) {
-                    print("P "); // Player's current location
+                    print("P ");
                 } else if ((PX == x && (PY == y - 1 || PY == y + 1) || (PY == y && (PX == x - 1 || PX == x + 1))))
                 {
-                    print("O "); // Travelable locations
+                    print("O ");
                 }
                 else {
-                    print("- "); // Non-travelable locations
+                    print("- ");
                 }
             }
             System.out.println("|");
@@ -66,15 +82,11 @@ public class Navigation {
     }
 
     public static void ViewMap() {
-        // Calculate the coordinates and relative index of the player's location
         PX = CurrentLocation % 5;
         PY = CurrentLocation / 5;
         IndexLocation = PY * 5 + PX;
 
-        // Print the player's current location
         println("You currently reside in the location " + Locations[IndexLocation]);
-
-        // Print the map
         map();
 
         if (PY > 0) {

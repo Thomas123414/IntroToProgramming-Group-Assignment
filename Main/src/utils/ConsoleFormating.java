@@ -1,8 +1,6 @@
 package src.utils;
 
 public class ConsoleFormating {
-
-
     //Method to system print messages with quicker call method to do so
     public static void print(String text) {
         System.out.print(text);
