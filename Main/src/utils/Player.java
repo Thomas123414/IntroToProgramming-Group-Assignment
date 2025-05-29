@@ -2,6 +2,7 @@ package src.utils;
 import java.util.ArrayList;
 import java.util.Random;
 import static src.utils.ConsoleFormating.*;
+import static src.utils.GameItems.*;
 
 public class Player {
     private String name = "Hercule";
@@ -12,12 +13,31 @@ public class Player {
     private boolean isFighting;
     private final ArrayList<GameItems> Inventory = new ArrayList<>();
 
-    public String displayBackpackContents() {
-        String backpackString = "";
-        for (GameItems item : Inventory) {
-            backpackString += String.format(" - (%d) %s\n", Inventory.indexOf(item) + 1, item.getItemName());
+    public Player(int health, boolean isAlive) {
+        this.health = health;
+        this.isAlive = isAlive;
+    }
+
+    public String CheckInventory() {
+        String InventoryString = "";
+        print("You are carrying the following items: ");
+        if (Inventory.isEmpty()) {
+            print("Your backpack is empty.");
+        } else {
+            for (GameItems GameItems : Inventory) {
+                InventoryString += String.format("- (%d) %s\n", Inventory.indexOf(GameItems) + 1, GameItems.getItemName());
+            }
         }
-        return backpackString;
+        return InventoryString;
+    }
+
+    public void addInventoryItem(GameItems gameitem) {
+        Inventory.add(gameitem);
+    }
+
+    // Remove an item from the player's backpack
+    public void removeBackpackItem(GameItems gameitem) {
+        Inventory.remove(gameitem);
     }
 
     public void setHealth(int health) {

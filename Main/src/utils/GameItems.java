@@ -4,9 +4,9 @@ public class GameItems {
     private String ItemName;
     private String Description;
     private int Value;
-    private int Type;
+    private String Type;
 
-    public GameItems(String ItemName, String Description, int Value, int Type) {
+    public GameItems(String ItemName, String Description, int Value, String Type) {
         this.ItemName = ItemName;
         this.Description = Description;
         this.Value = Value;
@@ -25,7 +25,7 @@ public class GameItems {
         return Value;
     }
 
-    public int getType() {
+    public String getType() {
         return Type;
     }
 
@@ -41,7 +41,7 @@ public class GameItems {
         this.Value = Value;
     }
 
-    public void setType(int Type) {
+    public void setType(String Type) {
         this.Type = Type;
     }
 }

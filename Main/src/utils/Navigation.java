@@ -4,18 +4,18 @@ import static src.utils.ConsoleFormating.*;
 
 public class Navigation {
     private static final Scanner Input = new Scanner(System.in);
-    private static int CurrentLocation = 8;
+    private static int CurrentLocation = 00;
     private static int PX = 0, PY = 0;
     private static int IndexLocation;
     private static int TempIndexLocation;
     private static int TempPX = 0, TempPY = 0;
 
     private static final String[] Locations = {
-        "HerculesHome",                   "Forest",                   "Pathway",                   "villainMountainBase",                   "Unknown",
-        "Unknown",                        "Unknown",                  "AbandonedHouses",           "Venice",                                "Shop",
-        "Unknown",                        "Unknown",                  "Warehouse",                 "BackAlley",                             "Front",
-        "Unknown",                        "Unknown",                  "Unknown",                   "BridgeRoute",                           "Unknown",
-        "Unknown",                        "Unknown",                  "Unknown",                   "Lair",                                  "Unknown"
+        "AbandonedHouses",                "Forest",                   "Hercules Home",             "Pathway",                           "VillainMountainBase",
+        "Unknown",                        "Shop",                     "Village",                   "Venice",                            "Unknown",
+        "Unknown",                        "Unknown",                  "Warehouse",                 "Front",                             "BackAlley",
+        "Unknown",                        "Unknown",                  "BridgeRoute",               "Unknown",                           "Bridge",
+        "Unknown",                        "Unknown",                  "Unknown",                   "Unknown",                           "EndGame"
     };
 
     private static final boolean[] LocationsVisited = {
@@ -26,33 +26,91 @@ public class Navigation {
             false, false, false, false, false
     };
 
+
+
     private static final boolean[] CombatLocations = {
-            false, false, false, false, false,
+            false, true, false, true, false,
             false, false, false, false,  false,
             false, false, false, false, false,
             false, false, false, false,  false,
             false, false, false, false, false
     };
 
+    private static final int[] locationSearchIndex = {
+            2, 0, 0, 1, 0,
+            1, 0, 0, 2, 0,
+            2, 1, 0, 0, 2,
+            0, 0, 1, 2, 1,
+            2, 1, 2, 0, 2
+    };
+
     public static void Navigate() {
         PX = CurrentLocation % 5;
         PY = CurrentLocation / 5;
         IndexLocation = PY * 5 + PX;
+
+        System.out.println("Current Location: " + PY + PX);
         boolean LoopActive = true;
 
         print("You reside within the region of " + Locations[IndexLocation] + ", where do you want to go from here?");
         lineBreak();
 
         map();
-        print("'N' = Up, 'S' = Down, 'W' = Left, 'E' = Right, '/' = Cancel Travel");
+        print("'N' = North, 'S' = South, 'W' = West, 'E' = East, '/' = Cancel Travel");
 
         while (LoopActive) {
             print("Enter Your Choice: ");
             String Movement = Input.nextLine().toUpperCase();
+            if (Movement.isEmpty()) {
+                print("You need to enter your movement input");
+            }
+            else {
+                switch (Movement) {
+                    case "N":
+                        if (PY != 0){
+                            CurrentLocation -= 5;
+                            LoopActive = false;
+                        }
+                        else {
+                            continue;
+                        }
+                        break;
+                    case "S":
+                        if (PY != 4){
+                            CurrentLocation += 5;
+                            LoopActive = false;
+                        }
+                        else {
+                            continue;
+                        }
+                        break;
+                    case "W":
+                        if (PX != 0){
+                            CurrentLocation -= 1;
+                            LoopActive = false;
+                        }
+                        else {
+                            continue;
+                        }
+                        break;
+                    case "E":
+                        if (PX != 4){
+                            CurrentLocation += 1;
+                            LoopActive = false;
+                        }
+                        else {
+                            continue;
+                        }
+                        break;
+                }
+            }
+            PX = CurrentLocation % 5;
+            PY = CurrentLocation / 5;
+            IndexLocation = PY * 5 + PX;
 
-
-
-
+            map();
+            print("Your traveled to " + Locations[IndexLocation]);
+            lineBreak();
         }
 
     }
@@ -90,19 +148,19 @@ public class Navigation {
         map();
 
         if (PY > 0) {
-            print("Above you is the " + Locations[IndexLocation - 5]);
+            print("North of you is the " + Locations[IndexLocation - 5]);
             lineBreak();
         }
         if (PY < 4) {
-            print("Below you is the " + Locations[IndexLocation + 5]);
+            print("South of you is the " + Locations[IndexLocation + 5]);
             lineBreak();
         }
         if (PX > 0) {
-            print("To the Left of you is the " + Locations[IndexLocation- 1]);
+            print("West of you is the " + Locations[IndexLocation- 1]);
             lineBreak();
         }
         if (PX < 4) {
-            print("To the Right of you is the " + Locations[IndexLocation + 1]);
+            print("East of you is the " + Locations[IndexLocation + 1]);
             lineBreak();
         }
     }
