@@ -18,6 +18,13 @@ public class Navigation {
         "Unknown",                        "Unknown",                  "Unknown",                   "Unknown",                           "EndGame"
     };
 
+    public static int getSearchIndex() {
+        PX = CurrentLocation % 5;
+        PY = CurrentLocation / 5;
+        IndexLocation = PY * 5 + PX;
+        return SearchIndex[IndexLocation];
+    }
+
     private static final boolean[] LocationsVisited = {
             true, false, false, false, false,
             false, false, false, false, false,
@@ -36,8 +43,8 @@ public class Navigation {
             false, false, false, false, false
     };
 
-    private static final int[] locationSearchIndex = {
-            2, 0, 0, 1, 0,
+    private static int[] SearchIndex = {
+            0, 1, 0, 1, 0,
             1, 0, 0, 2, 0,
             2, 1, 0, 0, 2,
             0, 0, 1, 2, 1,

@@ -23,12 +23,41 @@ public class Player {
         print("You are carrying the following items: ");
         if (Inventory.isEmpty()) {
             print("Your backpack is empty.");
-        } else {
+        }
+        else {
             for (GameItems GameItems : Inventory) {
                 InventoryString += String.format("- (%d) %s\n", Inventory.indexOf(GameItems) + 1, GameItems.getItemName());
             }
         }
         return InventoryString;
+    }
+
+    public boolean getInventoryItem(String name) {
+        for (GameItems gameitems : Inventory) {
+            if (gameitems.getItemName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void search(Player player) {
+        switch (Navigation.getSearchIndex()) {
+            case 0 -> print("You looked around but couldn't find anything useful.");
+            case 1 -> {
+                GameItems coin = new GameItems("coins", "currency to buy items from a shop!", 10, "Currency");
+                player.addInventoryItem(coin);
+                if (player.getInventoryItem("coins") == true){
+                    coin.setValue(coin.getValue() + 10);
+                }
+                else {
+                    player.addInventoryItem(coin);
+                }
+            }
+            case 2 -> {
+                print("Yourmum 64");
+            }
+        }
     }
 
     public void addInventoryItem(GameItems gameitem) {
