@@ -4,7 +4,7 @@ import static src.utils.ConsoleFormating.*;
 
 public class Navigation {
     private static final Scanner Input = new Scanner(System.in);
-    private static int CurrentLocation = 00;
+    private static int CurrentLocation = 03;
     private static int PX = 0, PY = 0;
     private static int IndexLocation;
     private static int TempIndexLocation;
@@ -185,6 +185,10 @@ public class Navigation {
             print("East of you is the " + Locations[IndexLocation + 1]);
             lineBreak();
         }
+    }
+
+    public static void setCurrentLocation(int Location) {
+        CurrentLocation = Location;
     }
 
 }
