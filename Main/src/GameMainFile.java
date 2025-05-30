@@ -8,9 +8,10 @@ public class GameMainFile {
     public static void main(String[] args) {
             Navigation.Navigate();
 
-            final Player Player1 = new Player(100, true);
-            final GameItems MapFrag1 = new GameItems("Map_Fragment1", "This fragment suggests we go west of your home, It might be worth gathering there!", 0, "Map");
-            Player1.addInventoryItem(MapFrag1);
+            Player Player1 = new Player(100, true);
+            GameItems MapFrag = new GameItems("Map_Fragment1", "This fragment suggests we go west of your home, It might be worth gathering there!", 0, "Map");
+            Player1.addInventoryItem(MapFrag);
+            Player.search(Player1);
             Player.search(Player1);
             Player1.CheckInventory();
          System.out.println(Player1.CheckInventory());

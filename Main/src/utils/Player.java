@@ -11,7 +11,7 @@ public class Player {
     private GameWeapons weapon;
     private boolean isAlive;
     private boolean isFighting;
-    private final ArrayList<GameItems> Inventory = new ArrayList<>();
+    private static ArrayList<GameItems> Inventory = new ArrayList<>();
 
     private static final Random ValueRND = new Random();
     public Player(int health, boolean isAlive) {
@@ -19,7 +19,7 @@ public class Player {
         this.isAlive = isAlive;
     }
 
-    public String CheckInventory() {
+    public static String CheckInventory() {
         StringBuilder InventoryString = new StringBuilder();
         print("You are carrying the following items: ");
         if (Inventory.isEmpty()) {
@@ -27,7 +27,12 @@ public class Player {
         }
         else {
             for (GameItems GameItems : Inventory) {
-                InventoryString.append(String.format("- (%d) %s\n", Inventory.indexOf(GameItems) + 1, GameItems.getItemName()));
+                if (GameItems.getItemName() == "coins") {
+                    InventoryString.append(String.format("- (%d) %s, Amount of coins: %d\n", Inventory.indexOf(GameItems) + 1, GameItems.getItemName(), GameItems.getValue()));
+                }
+                else {
+                    InventoryString.append(String.format("- (%d) %s\n", Inventory.indexOf(GameItems) + 1, GameItems.getItemName()));
+                }
             }
         }
         return InventoryString.toString();
@@ -48,12 +53,34 @@ public class Player {
         switch (Navigation.getSearchIndex()) {
             case 0 -> print("You looked around but couldn't find anything useful.");
             case 1 -> {
-                int RNDSearch = ValueRND.nextInt(2);
+                int RNDSearch = ValueRND.nextInt(1);
+                boolean Itemexistsalready = false;
                 GameItems[] gameItems = {
                         new GameItems("coins", "Curreny to help buy items from a shop", 10, "Curreny"),
                         new GameItems("bandage", "Healable Item, Heals you for a total 10 health", 1, "Healable Item"),
                 };
                 GameItems SearchedForItemRND = gameItems[RNDSearch];
+
+                for (GameItems GameItems : Inventory) {
+                    if (GameItems.getItemName() == "coins" || GameItems.getItemName() == "coins"){
+                        Itemexistsalready = true;
+                    }
+                }
+                if (Itemexistsalready == true) {
+                    if (RNDSearch == 1)
+                        for (GameItems GameItems : Inventory) {
+                            if (GameItems.getItemName() == "coins"){
+                                GameItems.setValue(GameItems.getValue() + 10);
+                            }
+                        }
+                    else if (RNDSearch == 2){
+                        for (GameItems GameItems : Inventory) {
+                            if (GameItems.getItemName() == "bandage") {
+                                GameItems.setValue(GameItems.getValue() + 1);
+                            }
+                        }
+                    }
+                }
                 player.addInventoryItem(SearchedForItemRND);
             }
             case 2 -> {

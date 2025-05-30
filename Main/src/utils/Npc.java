@@ -53,4 +53,38 @@ public class Npc {
     public void Hercule() {
         System.out.println("Justice isn’t blind... it’s iron-willed. And it just broke you.");
     }
+
+    public void ExampleShop() {
+        Scanner input = new Scanner(System.in);
+        boolean notValidInput = true;
+        while (notValidInput) {
+            System.out.print(
+                    """
+                     Hello, this is the example shop!
+                     Here are the options to buy things:
+                       - (1) Ammo
+                       - (2) Health Pack
+                       - (3) Gun
+                     """);
+            int choice = input.nextInt();
+
+            switch (choice) {
+                case 1 ->   {
+                    System.out.print("You bought Ammo!");
+                    notValidInput = false;
+                }
+                case 2 ->   {
+                    System.out.print("You bought a Health Pack!");
+                    notValidInput = false;
+                }
+                case 3 ->   {
+                    System.out.print("You bought a Gun!");
+                    notValidInput = false;
+                }
+                default ->  System.out.print("Not a valid input. Please write either a 1, 2 or 3.\n");
+            }
+        }
+        input.close();
+    }
+
 }

@@ -44,23 +44,23 @@ public class Fighting {
                     else if (enemymissChance >= 9) {
                             if (playerCritChance > 9) {
                                 playerdamage = player.Weapon.getDamage() * 3;
-                                player.setHealth(player.getHealth() - damage);
-                                print("You missed your attack, Enemy successfully attacked you causing " + damage + "which sets your health to " + player.getHealth());
+                                enemies[1].setHealth(enemies[1].getHealth() - playerdamage);
+                                print("Your enemy missed your attack, You successfully attacked the enemy causing " + playerdamage + " Damage which sets enemy health to " + enemies[Navigation.getCombatIndex()].getHealth());
                             } else if (playerCritChance > 6) {
                                 playerdamage = player.Weapon.getDamage() * 2;
-                                player.setHealth(player.getHealth() - damage);
-                                print("Your enemy missed your attack, You successfully attacked the enemy causing " + damage + "which sets enemy health to " + player.getHealth());
+                                enemies[1].setHealth(enemies[1].getHealth() - playerdamage);
+                                print("Your enemy missed your attack, You successfully attacked the enemy causing " + playerdamage + " Damage which sets enemy health to " + enemies[Navigation.getCombatIndex()].getHealth());
                             }
-                            else if (){
-                                playerdamage = player.Weapon.getDamage() * 2;
-                                player.setHealth(player.getHealth() - damage);
-                                print("You missed your attack, Enemy successfully attacked you causing " + damage + "which sets your health to " + player.getHealth());
+                            else if (playerCritChance <= 6){
+                                playerdamage = player.Weapon.getDamage();
+                                enemies[1].setHealth(enemies[1].getHealth() - playerdamage);
+                                print("Your enemy missed your attack, You successfully attacked the enemy causing " + playerdamage + " Damage which sets enemy health to " + enemies[Navigation.getCombatIndex()].getHealth());
                             }
 
                     }
 
                 }
-                else if () {
+                else if (true) {
 
                 }
 
@@ -79,4 +79,4 @@ public class Fighting {
         }
 
     }
-}
+
