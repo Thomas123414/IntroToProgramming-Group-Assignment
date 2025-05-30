@@ -13,24 +13,27 @@ public class Player {
     private boolean isFighting;
     private final ArrayList<GameItems> Inventory = new ArrayList<>();
 
+    private static final Random ValueRND = new Random();
     public Player(int health, boolean isAlive) {
         this.health = health;
         this.isAlive = isAlive;
     }
 
     public String CheckInventory() {
-        String InventoryString = "";
+        StringBuilder InventoryString = new StringBuilder();
         print("You are carrying the following items: ");
         if (Inventory.isEmpty()) {
             print("Your backpack is empty.");
         }
         else {
             for (GameItems GameItems : Inventory) {
-                InventoryString += String.format("- (%d) %s\n", Inventory.indexOf(GameItems) + 1, GameItems.getItemName());
+                InventoryString.append(String.format("- (%d) %s\n", Inventory.indexOf(GameItems) + 1, GameItems.getItemName()));
             }
         }
-        return InventoryString;
+        return InventoryString.toString();
     }
+
+    GameWeapons Weapon = new GameWeapons("Gun", "Goes Pew Pew", 9);
 
     public boolean getInventoryItem(String name) {
         for (GameItems gameitems : Inventory) {
@@ -45,14 +48,13 @@ public class Player {
         switch (Navigation.getSearchIndex()) {
             case 0 -> print("You looked around but couldn't find anything useful.");
             case 1 -> {
-                GameItems coin = new GameItems("coins", "currency to buy items from a shop!", 10, "Currency");
-                player.addInventoryItem(coin);
-                if (player.getInventoryItem("coins") == true){
-                    coin.setValue(coin.getValue() + 10);
-                }
-                else {
-                    player.addInventoryItem(coin);
-                }
+                int RNDSearch = ValueRND.nextInt(2);
+                GameItems[] gameItems = {
+                        new GameItems("coins", "Curreny to help buy items from a shop", 10, "Curreny"),
+                        new GameItems("bandage", "Healable Item, Heals you for a total 10 health", 1, "Healable Item"),
+                };
+                GameItems SearchedForItemRND = gameItems[RNDSearch];
+                player.addInventoryItem(SearchedForItemRND);
             }
             case 2 -> {
                 print("Yourmum 64");
@@ -65,7 +67,7 @@ public class Player {
     }
 
     // Remove an item from the player's backpack
-    public void removeBackpackItem(GameItems gameitem) {
+    public void removeInventoryItem(GameItems gameitem) {
         Inventory.remove(gameitem);
     }
 

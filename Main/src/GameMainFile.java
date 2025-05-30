@@ -13,6 +13,6 @@ public class GameMainFile {
             Player1.addInventoryItem(MapFrag1);
             Player.search(Player1);
             Player1.CheckInventory();
-
+         System.out.println(Player1.CheckInventory());
     }
 }

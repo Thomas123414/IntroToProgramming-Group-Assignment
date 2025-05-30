@@ -5,13 +5,11 @@ public class GameWeapons {
     private String Weaponname;
     private String Description;
     private int Damage;
-    private int Ammo;
 
-    public GameWeapons(String Weaponname, String Description, int Damage, int Ammo) {
+    public GameWeapons(String Weaponname, String Description, int Damage) {
         this.Weaponname = Weaponname;
         this.Description = Description;
         this.Damage = Damage;
-        this.Ammo = Ammo;
     }
 
     public String getWeaponName() {
@@ -26,10 +24,6 @@ public class GameWeapons {
         return Damage;
     }
 
-    public int getAmmo() {
-        return Ammo;
-    }
-
     public void setWeaponName(String Weaponname) {
         this.Weaponname = Weaponname;
     }
@@ -40,9 +34,5 @@ public class GameWeapons {
 
     public void setDamage(int Damage) {
         this.Damage = Damage;
-    }
-
-    public void setAmmo(int Ammo) {
-        this.Ammo = Ammo;
     }
 }

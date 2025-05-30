@@ -36,15 +36,30 @@ public class Navigation {
 
 
     private static final boolean[] CombatLocations = {
-            false, true, false, true, false,
+            false, true, false, false, true,
             false, false, false, false,  false,
             false, false, false, false, false,
-            false, false, false, false,  false,
-            false, false, false, false, false
+            false, false, false, false,  true,
+            false, false, false, false, true
     };
 
+    private static int[] CombatIndex = {
+            0, 1, 0, 0, 2,
+            0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0,
+            0, 0, 0, 0, 3,
+            0, 0, 0, 0, 4
+    };
+
+    public static int getCombatIndex() {
+        PX = CurrentLocation % 5;
+        PY = CurrentLocation / 5;
+        IndexLocation = PY * 5 + PX;
+        return CombatIndex[IndexLocation];
+    }
+
     private static int[] SearchIndex = {
-            0, 1, 0, 1, 0,
+            1, 1, 0, 1, 0,
             1, 0, 0, 2, 0,
             2, 1, 0, 0, 2,
             0, 0, 1, 2, 1,
