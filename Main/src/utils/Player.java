@@ -11,7 +11,7 @@ public class Player {
     private GameWeapons weapon;
     private boolean isAlive;
     private boolean isFighting;
-    private static ArrayList<GameItems> Inventory = new ArrayList<>();
+    private   static ArrayList<GameItems> Inventory = new ArrayList<>();
 
     private static final Random ValueRND = new Random();
     public Player(int health, boolean isAlive) {
@@ -30,12 +30,24 @@ public class Player {
                 if (GameItems.getItemName() == "coins") {
                     InventoryString.append(String.format("- (%d) %s, Amount of coins: %d\n", Inventory.indexOf(GameItems) + 1, GameItems.getItemName(), GameItems.getValue()));
                 }
+                else if (GameItems.getItemName() == "bandage"){
+                    InventoryString.append(String.format("- (%d) %s, Amount of bandages: %d\n", Inventory.indexOf(GameItems) + 1, GameItems.getItemName(), GameItems.getValue()));
+                }
                 else {
                     InventoryString.append(String.format("- (%d) %s\n", Inventory.indexOf(GameItems) + 1, GameItems.getItemName()));
                 }
             }
         }
         return InventoryString.toString();
+    }
+
+    public GameItems getItem(String string) {
+        for (GameItems GameItems : Inventory) {
+            if (GameItems.getItemName().equals(string)){
+                return GameItems;
+            }
+        }
+        return null;
     }
 
     GameWeapons Weapon = new GameWeapons("Gun", "Goes Pew Pew", 9);
@@ -53,35 +65,38 @@ public class Player {
         switch (Navigation.getSearchIndex()) {
             case 0 -> print("You looked around but couldn't find anything useful.");
             case 1 -> {
-                int RNDSearch = ValueRND.nextInt(1);
+                int RNDSearch = ValueRND.nextInt(2) + 1;
                 boolean Itemexistsalready = false;
                 GameItems[] gameItems = {
                         new GameItems("coins", "Curreny to help buy items from a shop", 10, "Curreny"),
                         new GameItems("bandage", "Healable Item, Heals you for a total 10 health", 1, "Healable Item"),
                 };
-                GameItems SearchedForItemRND = gameItems[RNDSearch];
+                GameItems SearchedForItemRND = gameItems[RNDSearch - 1];
 
                 for (GameItems GameItems : Inventory) {
-                    if (GameItems.getItemName() == "coins" || GameItems.getItemName() == "coins"){
+                    if (GameItems.getItemName().equals("coins") || GameItems.getItemName().equals("bandage")){
                         Itemexistsalready = true;
                     }
                 }
                 if (Itemexistsalready == true) {
-                    if (RNDSearch == 1)
+                    if (RNDSearch == 1) {
                         for (GameItems GameItems : Inventory) {
-                            if (GameItems.getItemName() == "coins"){
+                            if (GameItems.getItemName().equals("coins")){
                                 GameItems.setValue(GameItems.getValue() + 10);
                             }
                         }
-                    else if (RNDSearch == 2){
+                    }
+                    else if (RNDSearch == 2) {
                         for (GameItems GameItems : Inventory) {
-                            if (GameItems.getItemName() == "bandage") {
+                            if (GameItems.getItemName().equals("bandage")) {
                                 GameItems.setValue(GameItems.getValue() + 1);
                             }
                         }
                     }
                 }
-                player.addInventoryItem(SearchedForItemRND);
+                else {
+                    player.addInventoryItem(SearchedForItemRND);
+                }
             }
             case 2 -> {
                 print("Yourmum 64");

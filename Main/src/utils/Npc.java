@@ -54,7 +54,7 @@ public class Npc {
         System.out.println("Justice isn’t blind... it’s iron-willed. And it just broke you.");
     }
 
-    public void ExampleShop() {
+    public void ExampleShop(Player player) {
         Scanner input = new Scanner(System.in);
         boolean notValidInput = true;
         while (notValidInput) {
@@ -62,29 +62,57 @@ public class Npc {
                     """
                      Hello, this is the example shop!
                      Here are the options to buy things:
-                       - (1) Ammo
-                       - (2) Health Pack
-                       - (3) Gun
+                       - (1) Mask
+                       - (2) Lockpick set
+                       - (3) Bandages
+                       - (0) Leave the shop
                      """);
             int choice = input.nextInt();
 
             switch (choice) {
-                case 1 ->   {
-                    System.out.print("You bought Ammo!");
+                case 0 -> {
+                    System.out.println("See you next time!");
                     notValidInput = false;
                 }
-                case 2 ->   {
-                    System.out.print("You bought a Health Pack!");
-                    notValidInput = false;
+                case 1 -> {
+                    GameItems coinAddress = player.getItem("coins");
+                    if (coinAddress.getItemName().equals("coins") && coinAddress.getValue() > 10) {
+                        System.out.println("You bought a Mask!");
+                        coinAddress.setValue(coinAddress.getValue() - 10);
+                        notValidInput = false;
+                    }
+                    else {
+                        System.out.println("You do not have enough coins to pay for this!");
+                    }
                 }
-                case 3 ->   {
-                    System.out.print("You bought a Gun!");
-                    notValidInput = false;
+                case 2 -> {
+                    GameItems coinAddress = player.getItem("coins");
+                    if (coinAddress.getItemName().equals("coins") && coinAddress.getValue() > 10) {
+                        System.out.println("You bought a Lockpick set!");
+                        coinAddress.setValue(coinAddress.getValue() - 15);
+                        notValidInput = false;
+                    }
+                    else {
+                        System.out.println("You do not have enough coins to pay for this!");
+                    }
                 }
-                default ->  System.out.print("Not a valid input. Please write either a 1, 2 or 3.\n");
+                case 3 -> {
+                    GameItems coinAddress = player.getItem("coins");
+                    if (coinAddress.getItemName().equals("coins") && coinAddress.getValue() > 10) {
+                        System.out.println("You bought Bandages!");
+                        coinAddress.setValue(coinAddress.getValue() - 5);
+                        notValidInput = false;
+                    }
+                    else {
+                        System.out.println("You do not have enough coins to pay for this!");
+                    }
+                }
+                default ->  System.out.print("Not a valid input. Please write either a 1, 2, 3 or 0.\n");
             }
         }
         input.close();
     }
-
 }
+
+
+
