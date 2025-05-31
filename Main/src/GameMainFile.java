@@ -10,95 +10,53 @@ public class GameMainFile {
         boolean gameRunning = true;
         boolean repeatOptions = true;
         GameWeapons Weapon1 = new GameWeapons("gun", "Medium damage weapon that comes with every detective", 9);
+        GameItems MapFrag1 = new GameItems("mapFrag1", "Map to village", 1, "Map");
+        GameItems gun = new GameItems("gun", "Medium damage weapon that comes with every detective", 1, "Weapon");
         Npc Npc1 = new Npc();
         Fighting fighting1 = new Fighting();
         Random ValueRND = new Random();
         Scanner Input = new Scanner(System.in);
 
-        do {
+
             Player player1 = new Player(100, true);
+            player1.addInventoryItem(MapFrag1);
+            player1.addInventoryItem(gun);
             do {
                 println("What would you like to do? (1)Travel, (2)View map, (3) Check Inventory, (4) Search Location, (5) Use Item or Set Weapon from Inventory");
                 int choice = Input.nextInt();
                     switch (choice) {
                         // Use item
                         case 1 -> {
-                            println("<=-- Travel --=>");
+                            println(" Travel ");
                             Navigation.Navigate(player1, fighting1, Npc1);
                         }
                         // Move
                         case 2 -> {
-                            println("<=-- View Map --=>");
+                            println(" View Map ");
                             Navigation.map();
+                            Navigation.ViewMap();
                         }
                         // View Map
                         case 3 -> {
-                            print(YELLOW, "<=-- Viewing Maps --=>");
-                            lineBreak(2);
-                            Navigation.viewCombinedMap();
+                            println(" Check Inventory ");
+                            player1.CheckInventory();
                         }
                         // Search
                         case 4 -> {
-                            print(YELLOW, "<=-- Searching Location --=>");
-                            lineBreak(2);
-                            playerCharacter.search();
+                            println(" Searching Location ");
+                            Player.search(player1);
                         }
                         // Rest
                         case 5 -> {
-                            print(YELLOW, " <=-- Resting --=>");
-                            lineBreak(2);
-                            playerCharacter.rest();
+                            println(" Use Item or Set Weapon from Inventory ");
+                            Player.useItem(player1, Weapon1, Npc1);
                         }
-                        // Check Character
-                        case 6 -> {
-                            print(YELLOW, "<=-- Checking Character --=>");
-                            lineBreak(2);
-                            playerCharacter.checkCharacter();
-                        }
-                        // Add all nuclear cores to the player's backpack for testing purposes
-                        case 5428 -> {
-                            print(YELLOW, "<=-- Adding Nuclear Cores --=>");
-                            lineBreak(2);
-                            for (int i = 0; i < 9; i++) {
-                                playerCharacter.addBackpackItem(new Items("Nuclear Core " + (i + 1), 0, 0, 2));
-                            }
-                            lineBreak();
-                        }
-                        // Invalid choice
                         default -> {
-                            printSeperator = false;
-                            clearLine(2);
+                            println("Not a valid input! Make sure to enter a number 1 and 5!");
                         }
                     }
-                }
-
-                if (printSeperator) {
-                    lineBreak();
-                    printSpacer();
-                }
-
-                if (!playerCharacter.getIsAlive()) {
-                    print(RED, "+--------------------------------------------------+");
-                    lineBreak();
-                    print(RED, "| You failed to complete the mission... Game Over  |");
-                    lineBreak();
-                    print(RED, "+--------------------------------------------------+");
-                    lineBreak();
-                    lineBreak();
-                    print("Do you want to play again? " + colour(BLUE, "(Y)es / (N)o"));
-                    lineBreak();
-                    repeatOptions = false;
-                } else if (playerCharacter.getIsGameEnding()){
-                    lineBreak();
-                    print(GREEN, "+--------------------------------------------------+");
-                    lineBreak();
-                    print(GREEN, "|       You completed the mission! Game Over       |");
-                    lineBreak();
-                    print(GREEN, "+--------------------------------------------------+");
-                    lineBreak();
-                    lineBreak();
-                    print("Do you want to play again? " + colour(BLUE, "(Y)es / (N)o"));
-                    lineBreak();
+                if (player1.getIsAlive() == false) {
+                    println("You failed!");
                     repeatOptions = false;
                 }
             } while (repeatOptions);
