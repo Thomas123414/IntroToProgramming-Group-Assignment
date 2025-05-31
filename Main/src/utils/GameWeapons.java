@@ -28,7 +28,7 @@ public class GameWeapons {
         this.Weaponname = Weaponname;
     }
 
-    public void getDescription(String Description) {
+    public void setDescription(String Description) {
         this.Description = Description;
     }
 
