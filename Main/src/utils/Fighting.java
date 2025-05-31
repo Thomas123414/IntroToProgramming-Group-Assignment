@@ -106,6 +106,10 @@ public class Fighting {
                         }
                         print("What would you like to do now? (1) Fight, (2) Heal, (3) Leave Fight, which number option would you like?");
                     }
+
+                    if (player.getHealth() == 0) {
+                        player.setIsAlive(false);
+                    }
                 }
                 break;
             case 2:
@@ -191,6 +195,10 @@ public class Fighting {
                             print("You left the fight, you are dead!");
                         }
                         print("What would you like to do now? (1) Fight, (2) Heal, (3) Leave Fight, which number option would you like?");
+                    }
+
+                    if (player.getHealth() == 0) {
+                        player.setIsAlive(false);
                     }
                 }
                 break;
@@ -278,6 +286,10 @@ public class Fighting {
                         }
                         print("What would you like to do now? (1) Fight, (2) Heal, (3) Leave Fight, which number option would you like?");
                     }
+
+                    if (player.getHealth() == 0) {
+                        player.setIsAlive(false);
+                    }
                 }
                 break;
             case 4:
@@ -363,6 +375,11 @@ public class Fighting {
                             print("You left the fight, you are dead!");
                         }
                         print("What would you like to do now? (1) Fight, (2) Heal, (3) Leave Fight, which number option would you like?");
+                    }
+
+
+                    if (player.getHealth() == 0) {
+                        player.setIsAlive(false);
                     }
                 }
                 break;

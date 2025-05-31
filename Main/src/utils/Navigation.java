@@ -149,6 +149,9 @@ public class Navigation {
                                 continue;
                             }
                             break;
+                        case "/":
+                            LoopActive = false;
+                            break;
                     }
                 }
 
